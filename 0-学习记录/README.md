@@ -24,3 +24,7 @@
 - `screenshot`: 方便保存 GUI/仿真运行证据。
 
 注意：新安装的 Codex skills 需要重启 Codex 后才会在后续会话里自动生效。
+
+## 新增记录
+
+- `07-导航与运动指令.md`: Navigation2 架构、TurtleBot3 Gazebo + SLAM + Nav2 启动、C++ `NavigateToPose` action 客户端、Jazzy 参数踩坑与验证记录。
