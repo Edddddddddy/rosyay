@@ -1,0 +1,29 @@
+# ROS 2 build outputs
+build/
+install/
+log/
+.colcon/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# CMake and compiler outputs
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.o
+*.so
+*.a
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local temporary files
+*.tmp
+tmp/
