@@ -1,0 +1,18 @@
+robot_controller:
+  ros__parameters:
+    max_linear_speed: 0.26
+    max_angular_speed: 1.82
+    max_linear_acceleration: 0.5
+    max_angular_acceleration: 1.0
+    command_timeout: 0.7
+    obstacle_stop_distance: 0.45
+    wall_target_distance: 0.55
+    wall_kp: 1.0
+    control_rate: 20.0
+
+teleop_keyboard:
+  ros__parameters:
+    linear_step: 0.04
+    angular_step: 0.2
+    max_linear: 0.26
+    max_angular: 1.82

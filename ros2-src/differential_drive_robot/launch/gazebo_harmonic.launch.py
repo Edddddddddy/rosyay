@@ -16,6 +16,7 @@ def generate_launch_description():
     urdf_file = os.path.join(pkg_share, 'urdf', 'robot_harmonic.urdf')
     world_file = os.path.join(pkg_share, 'worlds', 'empty_world.sdf')
     bridge_file = os.path.join(pkg_share, 'config', 'bridge.yaml')
+    controller_params = os.path.join(pkg_share, 'config', 'controller_params.yaml')
     rviz_file = os.path.join(pkg_share, 'rviz', 'robot_view.rviz')
 
     with open(urdf_file, 'r', encoding='utf-8') as infp:
@@ -73,7 +74,7 @@ def generate_launch_description():
         executable='robot_controller',
         name='robot_controller',
         output='screen',
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[controller_params, {'use_sim_time': use_sim_time}],
     )
 
     rviz_node = Node(

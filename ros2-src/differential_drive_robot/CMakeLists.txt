@@ -11,9 +11,15 @@ find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/SetControlMode.srv"
+)
 
 add_executable(robot_controller src/robot_controller.cpp)
 ament_target_dependencies(robot_controller
@@ -21,13 +27,18 @@ ament_target_dependencies(robot_controller
   geometry_msgs
   sensor_msgs
   nav_msgs
+  std_msgs
 )
 
 add_executable(teleop_keyboard src/teleop_keyboard.cpp)
 ament_target_dependencies(teleop_keyboard
   rclcpp
   geometry_msgs
+  std_msgs
 )
+
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(robot_controller "${cpp_typesupport_target}")
 
 install(TARGETS
   robot_controller
@@ -40,6 +51,7 @@ install(DIRECTORY
   doc
   launch
   rviz
+  srv
   urdf
   worlds
   DESTINATION share/${PROJECT_NAME}
@@ -57,4 +69,5 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+ament_export_dependencies(rosidl_default_runtime)
 ament_package()

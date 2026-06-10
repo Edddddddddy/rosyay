@@ -33,9 +33,20 @@ ros2 run differential_drive_robot teleop_keyboard
 
 Keys:
 
-- `i`: faster forward
-- `,`: faster reverse
-- `j`: turn left
-- `l`: turn right
-- `k` or space: stop
+- `w`: faster forward
+- `x`: faster reverse
+- `a`: turn left
+- `d`: turn right
+- `s` or space: stop
+- `1`: manual mode
+- `2`: auto forward
+- `3`: auto circle
+- `4`: obstacle avoidance
+- `0`: wall following
 - `q`: quit
+
+Mode service:
+
+```bash
+ros2 service call /set_control_mode differential_drive_robot/srv/SetControlMode "{mode: auto_circle}"
+```
