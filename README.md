@@ -29,3 +29,17 @@ Run:
 ```bash
 ros2 launch differential_drive_robot gazebo_harmonic.launch.py
 ```
+
+## Course Source Run-Through
+
+Course source has also been built and smoke-tested in WSL:
+
+```text
+/home/ubuntu/ros2-src
+```
+
+Detailed notes:
+
+```text
+0-学习记录/10-课程源码跑通记录.md
+```
