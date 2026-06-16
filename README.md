@@ -43,3 +43,20 @@ Detailed notes:
 ```text
 0-学习记录/10-课程源码跑通记录.md
 ```
+
+## Project Structure And Quality
+
+Code under `ros2-src/` is now documented and checked as the version-controlled ROS2 project area:
+
+```text
+ros2-src/README.md
+ros2-src/QUALITY.md
+tools/check_ros2_src_quality.sh
+.github/workflows/ros2-src-quality.yml
+```
+
+Local quality check:
+
+```bash
+bash tools/check_ros2_src_quality.sh
+```
