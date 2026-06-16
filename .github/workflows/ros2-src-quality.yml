@@ -1,0 +1,29 @@
+name: ros2-src quality
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "feature/**"
+    paths:
+      - "ros2-src/**"
+      - "tools/check_ros2_src_quality.sh"
+      - ".editorconfig"
+      - ".github/workflows/ros2-src-quality.yml"
+  pull_request:
+    paths:
+      - "ros2-src/**"
+      - "tools/check_ros2_src_quality.sh"
+      - ".editorconfig"
+      - ".github/workflows/ros2-src-quality.yml"
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check ros2-src structure and text format
+        run: bash tools/check_ros2_src_quality.sh
