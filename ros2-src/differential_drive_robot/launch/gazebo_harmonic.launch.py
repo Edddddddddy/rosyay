@@ -24,6 +24,7 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time')
     rviz = LaunchConfiguration('rviz')
+    rviz_fixed_frame = LaunchConfiguration('rviz_fixed_frame')
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -81,7 +82,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', rviz_file],
+        arguments=['-d', rviz_file, '-f', rviz_fixed_frame],
         condition=IfCondition(rviz),
         parameters=[{'use_sim_time': use_sim_time}],
         output='screen',
@@ -90,6 +91,11 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time', default_value='true'),
         DeclareLaunchArgument('rviz', default_value='true'),
+        DeclareLaunchArgument(
+            'rviz_fixed_frame',
+            default_value='odom',
+            description='RViz fixed frame; use map only when SLAM or localization publishes it',
+        ),
         gazebo,
         bridge,
         robot_state_publisher,
