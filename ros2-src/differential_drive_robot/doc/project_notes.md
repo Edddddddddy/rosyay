@@ -30,3 +30,17 @@ source install/setup.bash
 ros2 launch differential_drive_robot gazebo_harmonic.launch.py rviz:=false
 ros2 run differential_drive_robot teleop_keyboard
 ```
+
+RViz 默认固定坐标系为 `odom`。独立仿真没有 `map`，可显式运行：
+
+```bash
+ros2 launch differential_drive_robot gazebo_harmonic.launch.py rviz_fixed_frame:=odom
+```
+
+切换控制模式前，在调用服务的终端中 source 工作空间：
+
+```bash
+source ~/ros2_ws/install/setup.bash
+ros2 service list -t | grep set_control_mode
+ros2 service call /set_control_mode differential_drive_robot/srv/SetControlMode "{mode: auto_circle}"
+```
