@@ -70,7 +70,7 @@ mapfile -d '' text_files < <(
 )
 
 if [[ ${#text_files[@]} -gt 0 ]]; then
-  crlf_files="$(grep -Il $'\r' "${text_files[@]}" || true)"
+  crlf_files="$(perl -ne 'if (/\r/) { print "$ARGV\n"; close ARGV }' "${text_files[@]}" || true)"
   if [[ -n "$crlf_files" ]]; then
     echo "$crlf_files"
     fail "CRLF line endings found. Use LF."

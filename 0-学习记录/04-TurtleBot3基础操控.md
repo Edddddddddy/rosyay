@@ -382,3 +382,39 @@ Managed nodes are active
 3. `ros_gz_sim_demos diff_drive` 的速度话题是 `Twist`，但 TurtleBot3 的 `/cmd_vel` 是 `TwistStamped`。
 4. Navigation2 启动后没有初始位姿时，`base_link -> map` 变换缺失是正常现象，需要在 RViz 设置 `2D Pose Estimate`。
 5. 命令行直接用 `ros2 topic pub` 发复杂 YAML 容易被多层 shell 引号弄坏；复杂消息可以用小脚本发布。
+
+## 2026-06-21 复测补充：`map` 和 `odom` 不要混用
+
+本笔记包含两种不同运行场景：
+
+- 单独运行差速机器人或 TurtleBot3 Gazebo：通常已有 `odom`，但没有 `map`。
+- 启动 Cartographer、SLAM Toolbox、AMCL 或 Nav2 定位：定位系统才会建立
+  `map -> odom`。
+
+因此只启动独立差速机器人时，RViz Fixed Frame 应设置为 `odom`：
+
+```bash
+ros2 launch differential_drive_robot gazebo_harmonic.launch.py rviz_fixed_frame:=odom
+ros2 run tf2_ros tf2_echo odom base_footprint
+```
+
+只有下面的检查能得到 `map -> base_link` 或 `map -> base_footprint` 时，才使用
+`map`：
+
+```bash
+ros2 run tf2_ros tf2_echo map base_link
+```
+
+如果 RViz 报：
+
+```text
+Global Status: Error
+Frame [map] does not exist
+```
+
+这不是 Gazebo 模型失败，而是当前系统没有任何节点发布 `map` 坐标系。切换为
+`odom`，或者启动 SLAM/定位节点即可。
+
+2026-06-21 实际复测确认：完整 Gazebo + RViz 启动成功，RViz 命令行包含
+`-f odom`，实体创建成功，`/odom`、`/tf` 桥接成功，日志中没有
+`Frame [map] does not exist`。
